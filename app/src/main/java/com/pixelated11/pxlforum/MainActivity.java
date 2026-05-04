@@ -2,7 +2,9 @@ package com.pixelated11.pxlforum;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -17,7 +19,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Fullscreen — must be BEFORE setContentView
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            );
+        } else {
+            getWindow().setDecorFitsSystemWindows(false);
+        }
+
         setContentView(R.layout.activity_main);
+
+        // Hide status bar AFTER setContentView
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getWindow().getInsetsController().hide(
+                    android.view.WindowInsets.Type.statusBars()
+            );
+        }
 
         webView = findViewById(R.id.webview);
 
@@ -44,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
         webView.loadUrl("https://pixelated11.page.gd");
 
-        // Modern back button handler
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
