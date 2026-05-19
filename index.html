@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src https:; style-src 'self' 'unsafe-inline';">
+  <title>Pixel's Forum</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { display: flex; flex-direction: column; height: 100vh; background: #1a1a1a; }
+    nav {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 12px; background: #2d2d2d;
+      font-family: sans-serif; font-size: 13px;
+    }
+    nav input {
+      flex: 1; padding: 4px 8px; border: 1px solid #555;
+      border-radius: 4px; background: #3d3d3d; color: #eee;
+      outline: none;
+    }
+    nav input:focus { border-color: #6af; }
+    nav button {
+      padding: 4px 12px; border: none; border-radius: 4px;
+      background: #555; color: #eee; cursor: pointer;
+    }
+    nav button:hover { background: #666; }
+    #status {
+      font-family: sans-serif; font-size: 12px; text-align: center;
+      padding: 4px; background: #2d2d2d; color: #888;
+    }
+    #status.blocked { background: #5a1a1a; color: #f88; }
+    webview {
+      flex: 1; border: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <button id="back">&#9664;</button>
+    <button id="forward">&#9654;</button>
+    <button id="reload">&#8635;</button>
+    <input id="urlbar" type="text" readonly>
+  </nav>
+  <div id="status"></div>
+  <webview id="webview" preload="./preload.js" src="https://pixelated11.page.gd"></webview>
+
+  <script>
+    const webview = document.getElementById('webview');
+    const urlbar = document.getElementById('urlbar');
+    const statusEl = document.getElementById('status');
+    const back = document.getElementById('back');
+    const forward = document.getElementById('forward');
+    const reload = document.getElementById('reload');
+    const allowedHosts = window.appConfig.allowedHosts;
+
+    function isAllowed(url) {
+      try {
+        const host = new URL(url).hostname.toLowerCase();
+        return allowedHosts.some(a => host === a || host.endsWith('.' + a));
+      } catch { return false; }
+    }
+
+    webview.addEventListener('will-navigate', (e) => {
+      if (!isAllowed(e.url)) {
+        e.preventDefault();
+        statusEl.textContent = 'Blocked navigation to: ' + e.url;
+        statusEl.className = 'blocked';
+      } else {
+        statusEl.textContent = '';
+        statusEl.className = '';
+      }
+    });
+
+    webview.addEventListener('did-navigate', (e) => {
+      urlbar.value = e.url;
+      statusEl.textContent = '';
+      statusEl.className = '';
+    });
+
+    webview.addEventListener('did-navigate-in-page', (e) => {
+      urlbar.value = e.url;
+    });
+
+    webview.addEventListener('new-window', (e) => {
+      if (isAllowed(e.url)) {
+        webview.loadURL(e.url);
+      } else {
+        statusEl.textContent = 'Blocked new window: ' + e.url;
+        statusEl.className = 'blocked';
+      }
+    });
+
+    back.addEventListener('click', () => webview.goBack());
+    forward.addEventListener('click', () => webview.goForward());
+    reload.addEventListener('click', () => webview.reload());
+  </script>
+</body>
+</html>
