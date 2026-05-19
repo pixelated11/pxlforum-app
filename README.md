@@ -80,14 +80,18 @@ Transfer the APK to your Android device and install it. You may need to enable *
 - Node.js v17.0 or later
 - A working terminal/powershell/command pronpt
 
-1. Clone the repository
+0. Clone the repository
 ```
 git clone https://github.com/pixelated11/pxlforum-app
 # then
 cd pxlforum-app
 ```
+1. Switch to `win` branch
+```
+git checkout win
+```
 
-2. Install npm dependencies
+3. Install npm dependencies
 ```
 npm install
 ```
