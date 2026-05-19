@@ -108,4 +108,4 @@ npm run start
 
 Contribution
 
-Contributions are welcome. Email: itspixelatd@proton.me to request contribution. Make sure you follow the [code of conduct.](https://github.com/pixelated11/pxlforum-app/CODE_OF_CONDUCT.md)
+Contributions are welcome. Email: itspixelatd@proton.me to request contribution. Make sure you follow the [code of conduct.](https://github.com/pixelated11/pxlforum-app?tab=coc-ov-file)
