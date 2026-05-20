@@ -2,9 +2,3 @@
 plugins {
     alias(libs.plugins.android.application) apply false
 }
-android {
-    defaultConfig {
-        versionCode = 1
-        versionName = "1.0"
-    }
-}
