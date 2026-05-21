@@ -155,3 +155,4 @@ build/
 
 # Local configuration
 local.properties
+.aider*
