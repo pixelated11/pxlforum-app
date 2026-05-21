@@ -1,3 +1,4 @@
+# Existing generic ignore patterns
 
 gs
 logs
@@ -145,14 +146,34 @@ vite.config.ts.timestamp-*
 
 # Gradle
 .gradle/
-
-# IntelliJ IDEA
-.idea/
-
-# Android build
-app/build/
 build/
-
-# Local configuration
+app/build/
 local.properties
-.aider*
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code workspace settings (if you keep them in the repo)
+.vscode/
+
+# Generated APKs & intermediate files
+*.apk
+*.ap_
+*.dex
+*.class
+*.jar
+*.keystore
+
+# Miscellaneous generated files
+captures/
+outputs/
+generated/
+
+# Gradle wrapper files (optional – keep if you want the wrapper in the repo)
+# gradle-wrapper.jar
+# gradle-wrapper.properties
+
+# End of .gitignore
