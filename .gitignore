@@ -13,3 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+.aider*
+.aider.*
+node_modules/
+dist/
+app/build
