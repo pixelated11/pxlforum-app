@@ -1,1 +1,63 @@
-git status --ignored -s
+# ==============================
+# Combined .gitignore
+# ==============================
+# ---- Node.js ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# ---- Android ----
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+app/build
+*.apk
+*.ap_
+*.aab
+*.aar
+*.dex
+*.class
+*.jar
+*.keystore
+*.jks
+*.orig
+*.log
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.idea/
+.gradle/
+captures/
+output/
+*.hprof
+
+# ---- Aider ----
+.aider*
+.aider.*
+
+# ---- Existing project‑specific entries (kept for safety) ----
+# (If any of the above patterns already cover these, they are harmless duplicates)
+
